@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Menu {
 	public int menu() throws Exception {
 		// Scanner object
-		Scanner scanner = new Scanner(System.in);
+		Scanner s = new Scanner(System.in);
 		
 		// You should put the following code into a menu or Menu class
 		System.out.println(ConsoleColour.WHITE);
@@ -19,9 +19,7 @@ public class Menu {
 		System.out.println("(1) Specify Embedding File");
 		System.out.println("(2) Specify an Output File (default: ./out.txt)");
 		System.out.println("(3) Enter a Word or Text");
-		System.out.println("(4) Configure Options");
-		System.out.println("(?) Optional Extras...");
-		System.out.println("(?) Quit");
+		System.out.println("(5) Quit");
 
 		// Output a menu of options and solicit text from the user
 		System.out.print(ConsoleColour.BLACK_BOLD_BRIGHT);
@@ -29,14 +27,14 @@ public class Menu {
 		System.out.println();
 		
 		// Get user choice
-		int choice = scanner.nextInt();
-		scanner.close();
+		int choice = s.nextInt();
+		// s.close(); - not closing this on purpose!
 
 		// You may want to include a progress meter in you assignment!
-		System.out.print(ConsoleColour.YELLOW); // Change the color of the console text
+		System.out.print(ConsoleColour.RED); // Change the color of the console text
 		int size = 100; // The size of the meter. 100 equates to 100%
 		for (int i = 0; i < size; i++) { // The loop equates to a sequence of processing steps
-			printProgress(i + 1, size); // After each (some) steps, update the progress meter
+			// printProgress(i + 1, size); // After each (some) steps, update the progress meter
 			Thread.sleep(10); // Slows things down so the animation is visible
 		}
 		return choice;
@@ -64,39 +62,39 @@ public class Menu {
 	 * 
 	 * 
 	 */
-	public static void printProgress(int index, int total) {
-		if (index > total)
-			return; // Out of range
-		int size = 50; // Must be less than console width
-		char done = '█'; // Change to whatever you like.
-		char todo = '░'; // Change to whatever you like.
-
-		// Compute basic metrics for the meter
-		int complete = (100 * index) / total;
-		int completeLen = size * complete / 100;
-
-		/*
-		 * A StringBuilder should be used for string concatenation inside a loop.
-		 * However, as the number of loop iterations is small, using the "+" operator
-		 * may be more efficient as the instructions can be optimized by the compiler.
-		 * Either way, the performance overhead will be marginal.
-		 */
-		StringBuilder sb = new StringBuilder();
-		sb.append("[");
-		for (int i = 0; i < size; i++) {
-			sb.append((i < completeLen) ? done : todo);
-		}
-
-		/*
-		 * The line feed escape character "\r" returns the cursor to the start of the
-		 * current line. Calling print(...) overwrites the existing line and creates the
-		 * illusion of an animation.
-		 */
-		System.out.print("\r" + sb + "] " + complete + "%");
-
-		// Once the meter reaches its max, move to a new line.
-		if (done == total)
-			System.out.println("\n");
-	}
+//	public static void printProgress(int index, int total) {
+//		if (index > total)
+//			return; // Out of range
+//		int size = 50; // Must be less than console width
+//		char done = '█'; // Change to whatever you like.
+//		char todo = '░'; // Change to whatever you like.
+//
+//		// Compute basic metrics for the meter
+//		int complete = (100 * index) / total;
+//		int completeLen = size * complete / 100;
+//
+//		/*
+//		 * A StringBuilder should be used for string concatenation inside a loop.
+//		 * However, as the number of loop iterations is small, using the "+" operator
+//		 * may be more efficient as the instructions can be optimized by the compiler.
+//		 * Either way, the performance overhead will be marginal.
+//		 */
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("[");
+//		for (int i = 0; i < size; i++) {
+//			sb.append((i < completeLen) ? done : todo);
+//		}
+//
+//		/*
+//		 * The line feed escape character "\r" returns the cursor to the start of the
+//		 * current line. Calling print(...) overwrites the existing line and creates the
+//		 * illusion of an animation.
+//		 */
+//		System.out.print("\r" + sb + "] " + complete + "%");
+//
+//		// Once the meter reaches its max, move to a new line.
+//		if (done == total)
+//			System.out.println("\n");
+//	}
 
 }
