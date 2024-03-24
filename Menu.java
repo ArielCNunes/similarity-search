@@ -2,7 +2,16 @@ package ie.atu.sw;
 
 import java.util.Scanner;
 
+/**
+ * Class containing the menu
+ */
 public class Menu {
+	/**
+	 * Menu containing all options for the user.
+	 * 
+	 * @return option chosen by the user.
+	 * @throws Exception if the user enters a word instead of an integer.
+	 */
 	public int menu() throws Exception {
 		// Scanner object
 		Scanner s = new Scanner(System.in);
@@ -18,16 +27,28 @@ public class Menu {
 		System.out.println("************************************************************");
 		System.out.println("(1) Specify Embedding File");
 		System.out.println("(2) Specify an Output File (default: ./out.txt)");
-		System.out.println("(3) Enter a Word or Text");
-		System.out.println("(5) Quit");
+		System.out.println("(3) Enter a Word");
+		System.out.println("(4) Quit Program");
 
 		// Output a menu of options and solicit text from the user
 		System.out.print(ConsoleColour.BLACK_BOLD_BRIGHT);
-		System.out.print("Select Option [1-3]>");
+		System.out.print("Select Option [1-4]>");
 		System.out.println();
 		
-		// Get user choice
-		int choice = s.nextInt();
+		// Get valid user choice
+		int choice = 0;
+		boolean validInput = false;
+
+		while (!validInput) {
+		    try {
+		        choice = s.nextInt();
+		        validInput = true; // Set flag to true if input is valid
+		    } catch (Exception e) {
+		        System.out.println("Enter a valid number, please.");
+		        // Consume the invalid input
+		        s.nextLine();
+		    }
+		}
 		// s.close(); - not closing this on purpose!
 
 		// You may want to include a progress meter in you assignment!

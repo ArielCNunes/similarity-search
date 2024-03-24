@@ -7,9 +7,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FileParser {
-	/*
+	/**
 	 * This method will take the line directly from the file, break it down, and add
 	 * it to the map.
+	 * 
+	 * Big-O Notation: O(n) -> This method will always loop through all the lines in
+	 * the .txt file, break up each line in 2. It does the same thing to all lines,
+	 * so the more lines, the longer it takes.
+	 * 
+	 * @param the file path/file name.
+	 * 
+	 * @return the map containing the words and vectors.
 	 */
 	public static Map<String, double[]> readLineFromFile(String filePath) {
 		Map<String, double[]> wordsAndVectorsMap = new HashMap<>(); // Map
