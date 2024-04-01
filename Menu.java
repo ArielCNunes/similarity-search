@@ -15,9 +15,9 @@ public class Menu {
 	public int menu() throws Exception {
 		// Scanner object
 		Scanner s = new Scanner(System.in);
-		
+
 		// You should put the following code into a menu or Menu class
-		System.out.println(ConsoleColour.WHITE);
+		System.out.println(ConsoleColour.GREEN_BOLD_BRIGHT);
 		System.out.println("************************************************************");
 		System.out.println("*                                                          *");
 		System.out.println("*     ATU - Dept. of Computer Science & Applied Physics    *");
@@ -27,37 +27,38 @@ public class Menu {
 		System.out.println("************************************************************");
 		System.out.println("(1) Specify Embedding File");
 		System.out.println("(2) Specify an Output File (default: ./out.txt)");
-		System.out.println("(3) Enter a Word");
-		System.out.println("(4) Quit Program");
+		System.out.println("(3) Enter a Word (Find most similar matches)");
+		System.out.println("(4) Enter a Word (Find least similar matches)");
+		System.out.println("(5) Quit");
 
 		// Output a menu of options and solicit text from the user
 		System.out.print(ConsoleColour.BLACK_BOLD_BRIGHT);
-		System.out.print("Select Option [1-4]>");
+		System.out.print("Select Option [1-5]>");
 		System.out.println();
-		
+
 		// Get valid user choice
 		int choice = 0;
 		boolean validInput = false;
 
 		while (!validInput) {
-		    try {
-		        choice = s.nextInt();
-		        validInput = true; // Set flag to true if input is valid
-		    } catch (Exception e) {
-		        System.out.println("Enter a valid number, please.");
-		        // Consume the invalid input
-		        s.nextLine();
-		    }
+			try {
+				choice = s.nextInt();
+
+				// Message if option does not exist
+				if (choice < 1 || choice > 5) {
+					System.out.print(ConsoleColour.RED_BOLD_BRIGHT);
+					System.out.println("This option does not exist.");
+				}
+
+				validInput = true; // Set it to true if input is valid
+			} catch (Exception e) {
+				System.out.print(ConsoleColour.RED_BOLD_BRIGHT); // "Error"
+				System.out.println("Enter a valid number, please.");
+				// Consume the invalid input
+				s.nextLine();
+			}
 		}
 		// s.close(); - not closing this on purpose!
-
-		// You may want to include a progress meter in you assignment!
-		System.out.print(ConsoleColour.RED); // Change the color of the console text
-		int size = 100; // The size of the meter. 100 equates to 100%
-		for (int i = 0; i < size; i++) { // The loop equates to a sequence of processing steps
-			// printProgress(i + 1, size); // After each (some) steps, update the progress meter
-			Thread.sleep(10); // Slows things down so the animation is visible
-		}
 		return choice;
 	}
 
@@ -80,42 +81,39 @@ public class Menu {
 	 * 
 	 * 3) If the variable size is greater than the terminal width, a new line escape
 	 * character "\n" will be automatically added and the meter won't work properly.
-	 * 
-	 * 
 	 */
-//	public static void printProgress(int index, int total) {
-//		if (index > total)
-//			return; // Out of range
-//		int size = 50; // Must be less than console width
-//		char done = '█'; // Change to whatever you like.
-//		char todo = '░'; // Change to whatever you like.
-//
-//		// Compute basic metrics for the meter
-//		int complete = (100 * index) / total;
-//		int completeLen = size * complete / 100;
-//
-//		/*
-//		 * A StringBuilder should be used for string concatenation inside a loop.
-//		 * However, as the number of loop iterations is small, using the "+" operator
-//		 * may be more efficient as the instructions can be optimized by the compiler.
-//		 * Either way, the performance overhead will be marginal.
-//		 */
-//		StringBuilder sb = new StringBuilder();
-//		sb.append("[");
-//		for (int i = 0; i < size; i++) {
-//			sb.append((i < completeLen) ? done : todo);
-//		}
-//
-//		/*
-//		 * The line feed escape character "\r" returns the cursor to the start of the
-//		 * current line. Calling print(...) overwrites the existing line and creates the
-//		 * illusion of an animation.
-//		 */
-//		System.out.print("\r" + sb + "] " + complete + "%");
-//
-//		// Once the meter reaches its max, move to a new line.
-//		if (done == total)
-//			System.out.println("\n");
-//	}
+	public static void printProgress(int index, int total) {
+		if (index > total)
+			return; // Out of range
+		int size = 50; // Must be less than console width
+		char done = '█'; // Change to whatever you like.
+		char todo = '░'; // Change to whatever you like.
 
+		// Compute basic metrics for the meter
+		int complete = (100 * index) / total;
+		int completeLen = size * complete / 100;
+
+		/*
+		 * A StringBuilder should be used for string concatenation inside a loop.
+		 * However, as the number of loop iterations is small, using the "+" operator
+		 * may be more efficient as the instructions can be optimized by the compiler.
+		 * Either way, the performance overhead will be marginal.
+		 */
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for (int i = 0; i < size; i++) {
+			sb.append((i < completeLen) ? done : todo);
+		}
+
+		/*
+		 * The line feed escape character "\r" returns the cursor to the start of the
+		 * current line. Calling print(...) overwrites the existing line and creates the
+		 * illusion of an animation.
+		 */
+		System.out.print("\r" + sb + "] " + complete + "%");
+
+		// Once the meter reaches its max, move to a new line.
+		if (done == total)
+			System.out.println("\n");
+	}
 }
